@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-maven-repo-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-maven-repo
+  template:
+    metadata:
+      labels:
+        app: my-maven-repo
+    spec:
+      containers:
+      - name: my-maven-repo
+        image: nikitaks997797/my-maven-repo:latest
+        ports:
+        - containerPort: 8080
