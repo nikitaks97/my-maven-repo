@@ -42,10 +42,8 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@v4
-        with:
-          projectBaseDir: .
+      - name: Run SonarQube Analysis with Maven
+        run: mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
