@@ -12,7 +12,7 @@ spec:
       labels:
         app: my-maven-repo
     spec:
-      containers:
+      container:
       - name: my-maven-repo
         image: nikitaks997797/my-maven-repo:latest
         ports:

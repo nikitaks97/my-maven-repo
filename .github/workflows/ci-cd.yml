@@ -40,17 +40,25 @@ jobs:
             tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-maven-repo1:latest
 
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v3
+     # - name: Set up kubectl
+     #   uses: azure/setup-kubectl@v3
+     #   with:
+     #     version: 'latest' # or specify a version
+#
+     # - name: Set up Kubeconfig
+     #   run: |
+     #       mkdir -p $HOME/.kube
+     #       echo "${{ secrets.KUBECONFIG }}" >> $HOME/.kube/config
+
+     # - name: Deploy to Kubernetes
+     #   run: |
+     #     kubectl apply --insecure-skip-tls-verify=true -f k8s-deployment.yaml --validate=false
+     #     kubectl apply --insecure-skip-tls-verify=true -f service.yaml --validate=false
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v1.0.0
         with:
-          version: 'latest' # or specify a version
-
-      - name: Set up Kubeconfig
-        run: |
-            mkdir -p $HOME/.kube
-            echo "${{ secrets.KUBECONFIG }}" >> $HOME/.kube/config
-
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply --insecure-skip-tls-verify=true -f k8s-deployment.yaml --validate=false
-          kubectl apply --insecure-skip-tls-verify=true -f service.yaml --validate=false
+          projectBaseDir: .
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          
