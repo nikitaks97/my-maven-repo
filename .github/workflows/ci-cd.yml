@@ -24,7 +24,7 @@ jobs:
         run: mvn clean package
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -43,7 +43,7 @@ jobs:
           java-version: '17'
 
       - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@v1.0.0
+        uses: sonarsource/sonarqube-scan-action@v4
         with:
           projectBaseDir: .
         env:
