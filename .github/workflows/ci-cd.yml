@@ -41,14 +41,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: SonarQube Analysis via Maven
+      - name: Run Tests and SonarQube Analysis
         run: |
-           mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
+           mvn clean test verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar \
             -Dsonar.projectKey=nikitaks97_my-maven-repo \
             -Dsonar.organization=nikitaks97 \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
